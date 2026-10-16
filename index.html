@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#263e36">
+<title>世界旅行作家挑战｜The Wandering Writer</title>
+<style>
+:root{--ink:#25372f;--green:#314f43;--sage:#dce6d8;--cream:#f8f4e9;--paper:#fffdf7;--gold:#c59b55;--muted:#68766d;--line:#d9dfd4;--rose:#b86e62}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--cream);color:var(--ink);font-family:system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;line-height:1.7}
+.hero{padding:62px 20px 52px;background:linear-gradient(135deg,#263e36,#547363);color:#fffdf7;text-align:center;position:relative;overflow:hidden}
+.hero:after{content:"✦  ✧  ✦";position:absolute;right:5%;bottom:10px;color:#ffffff26;font-size:3rem;letter-spacing:1rem}
+.eyebrow{text-transform:uppercase;letter-spacing:.2em;font-size:.78rem;color:#e5c58b}.hero h1{font-family:Georgia,"Songti SC",serif;font-weight:600;font-size:clamp(2.1rem,6vw,4.1rem);line-height:1.18;margin:14px 0}.hero p{max-width:700px;margin:12px auto;color:#f0f0e5}.hero .tag{display:inline-block;border:1px solid #ffffff66;border-radius:99px;padding:5px 13px;margin-top:16px;font-size:.85rem}
+nav{position:sticky;top:0;z-index:10;background:#fffdf7ee;backdrop-filter:blur(10px);border-bottom:1px solid var(--line);display:flex;gap:6px;justify-content:center;flex-wrap:wrap;padding:9px}
+nav a{color:var(--green);text-decoration:none;padding:6px 10px;border-radius:20px;font-size:.9rem}nav a:hover{background:var(--sage)}
+main{max-width:1100px;margin:0 auto;padding:24px 18px 70px}.section{margin:30px 0;scroll-margin-top:78px}.section-title{font-family:Georgia,"Songti SC",serif;font-size:1.8rem;margin:0 0 7px}.intro{color:var(--muted);margin-top:0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}.card{background:var(--paper);border:1px solid var(--line);border-radius:17px;padding:19px;box-shadow:0 5px 20px #283c3010}.card h3{margin:0 0 8px;font-size:1.08rem}.card p:last-child{margin-bottom:0}.pill{display:inline-block;background:var(--sage);color:var(--green);border-radius:99px;padding:3px 9px;font-size:.78rem;margin:2px}
+.wheel-layout{display:grid;grid-template-columns:minmax(280px,1fr) minmax(260px,.9fr);gap:24px;align-items:center}.wheel-box{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:18px;text-align:center}.canvas-wrap{position:relative;max-width:460px;margin:0 auto}.pointer{position:absolute;z-index:2;top:-4px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:17px solid transparent;border-right:17px solid transparent;border-top:32px solid var(--rose);filter:drop-shadow(0 2px 2px #0002)}canvas{width:100%;height:auto;display:block;filter:drop-shadow(0 7px 8px #263e3620)}.controls{display:flex;gap:9px;justify-content:center;flex-wrap:wrap;margin-top:14px}.btn{border:0;border-radius:999px;padding:11px 18px;font:inherit;font-weight:650;cursor:pointer;transition:transform .15s,opacity .15s}.btn:hover{transform:translateY(-1px)}.btn:disabled{opacity:.5;cursor:wait}.primary{background:var(--green);color:white}.secondary{background:var(--sage);color:var(--green)}.result{margin:14px auto 0;background:#f1ead9;border-radius:13px;padding:13px;min-height:72px;max-width:460px}.result strong{display:block;font-size:1.15rem}.wheel-side label{display:block;font-weight:650;margin:12px 0 5px}.wheel-side select,.wheel-side textarea,.wheel-side input{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px;background:#fffdf7;color:var(--ink);font:inherit}.wheel-side textarea{min-height:90px}.help{font-size:.88rem;color:var(--muted)}.wheel-tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}.wheel-tab{border:1px solid var(--line);background:var(--paper);border-radius:99px;padding:8px 13px;cursor:pointer;color:var(--green)}.wheel-tab.active{background:var(--green);color:#fff}.two-col{display:grid;grid-template-columns:1fr 1fr;gap:15px}.checklist label{display:flex;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line);align-items:flex-start}.checklist input{margin-top:7px;accent-color:var(--green);width:17px;height:17px}.checklist label:last-child{border:0}table{width:100%;border-collapse:collapse;background:var(--paper);border-radius:14px;overflow:hidden}th,td{text-align:left;padding:11px 13px;border-bottom:1px solid var(--line);vertical-align:top}th{background:var(--sage);color:var(--green)}tr:last-child td{border-bottom:0}.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px}.note{border-left:4px solid var(--gold);background:#f3eddf;padding:13px 16px;border-radius:0 12px 12px 0}.log-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.log-grid label{display:block;font-size:.9rem;font-weight:650}.log-grid input,.log-grid textarea{margin-top:4px;width:100%;border:1px solid var(--line);border-radius:9px;padding:10px;background:var(--paper);font:inherit}.log-grid textarea{min-height:76px}.log-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}.saved{color:var(--green);font-size:.9rem}.footer{text-align:center;color:var(--muted);padding:28px 10px;border-top:1px solid var(--line);font-size:.9rem}
+@media(max-width:760px){.wheel-layout,.two-col{grid-template-columns:1fr}.hero{padding-top:45px}.wheel-side{order:-1}nav{position:relative}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="eyebrow">THE WANDERING WRITER CHALLENGE</div>
+  <h1>世界旅行作家挑战</h1>
+  <p>走过不同的人生，收集世界的故事，把每一段旅程写成永恒。</p>
+  <p>你是一名自由职业作家。下一站在哪里、会遇见谁、又会写下怎样的故事——交给转盘决定。</p>
+  <span class="tag">随机旅行 · 限时探索 · 人物故事 · 旅行纪念</span>
+</header>
+<nav>
+  <a href="#rules">挑战规则</a><a href="#wheel">互动转盘</a><a href="#worlds">世界人物</a><a href="#events">随机事件</a><a href="#log">旅行日志</a><a href="#goal">胜利条件</a>
+</nav>
+<main>
+<section id="rules" class="section">
+  <h2 class="section-title">01 / 旅行者守则</h2>
+  <p class="intro">简单规则，直接开玩。建议标准难度。</p>
+  <div class="grid">
+    <article class="card"><h3>✍️ 创建作家</h3><p>青年或成年小人；自由职业者中的作家；初始资金 §1,800。推荐特征：创意、书虫、独行侠。写作技能从 1 级开始。</p></article>
+    <article class="card"><h3>🗺️ 随机出发</h3><p>每次旅行后抽取新世界。初次探索优先去没完成的世界；抽中当前世界就重抽。不能因为不喜欢目的地而换签。</p></article>
+    <article class="card"><h3>⏳ 五日限时</h3><p>每个世界最多停留 5 个游戏日。第 5 天结束前离开。每日安排自由，但不能超时。</p></article>
+    <article class="card"><h3>💰 旅行预算</h3><p>每个世界日常消费预算 §300，包括食物、娱乐和旅行用品。不必花完；禁止金钱作弊和漏洞刷钱。</p></article>
+    <article class="card"><h3>📚 每站一书</h3><p>每个世界完成至少一本与当地经历有关的正式书籍。结合世界主题、抽到的灵感和真实游戏经历。</p></article>
+    <article class="card"><h3>🎁 留下纪念</h3><p>每个世界带走一件有意义的纪念品，并填写旅行日志。照片、收藏品或与当地相关的物品都可以。</p></article>
+  </div>
+  <div class="note" style="margin-top:15px"><strong>每站必做：</strong>探索一个随机地段＋完成当地人物任务＋完成一本书＋收集纪念品＋抽取一个随机事件。游戏机制确实不支持的任务可以重抽；单纯没时间完成则记为失败。</div>
+</section>
+
+<section id="wheel" class="section">
+  <h2 class="section-title">02 / 互动旅行转盘</h2>
+  <p class="intro">选择转盘，点击「转起来！」。转盘会随机旋转并显示结果；可编辑世界名单，按自己的 DLC 调整。</p>
+  <div class="wheel-tabs" role="tablist">
+    <button class="wheel-tab active" data-wheel="world">🌍 世界转盘</button>
+    <button class="wheel-tab" data-wheel="place">📍 地段类型</button>
+    <button class="wheel-tab" data-wheel="theme">✒️ 写作灵感</button>
+    <button class="wheel-tab" data-wheel="event">🎲 旅行事件</button>
+    <button class="wheel-tab" data-wheel="task">🧭 通用任务</button>
+  </div>
+  <div class="wheel-layout">
+    <div class="wheel-box">
+      <div class="canvas-wrap"><div class="pointer"></div><canvas id="wheel" width="600" height="600" aria-label="可互动随机转盘"></canvas></div>
+      <div class="controls"><button class="btn primary" id="spin">转起来！</button><button class="btn secondary" id="again">重新抽取</button></div>
+      <div class="result" aria-live="polite"><span>本次结果</span><strong id="result">准备好开启旅程了吗？</strong><span id="resultSub" class="help">选择一个转盘开始抽取。</span></div>
+    </div>
+    <div class="card wheel-side">
+      <h3>转盘设置</h3>
+      <label for="worldMode">世界抽取模式</label>
+      <select id="worldMode"><option value="unvisited">优先未探索世界</option><option value="all">所有世界随机（允许重复）</option></select>
+      <label for="visited">已探索世界（每行一个，可编辑）</label>
+      <textarea id="visited" placeholder="填入已经完成探索的世界名称"></textarea>
+      <div class="controls" style="justify-content:flex-start"><button class="btn secondary" id="markVisited">将当前结果标记为已探索</button><button class="btn secondary" id="resetVisited">清空已探索列表</button></div>
+      <label for="customWorlds">世界名单（每行一个）</label>
+      <textarea id="customWorlds"></textarea>
+      <div class="controls" style="justify-content:flex-start"><button class="btn secondary" id="saveWorlds">保存世界名单</button><button class="btn secondary" id="restoreWorlds">恢复示例名单</button></div>
+      <p class="help">名单与已探索记录会保存在当前浏览器。地段转盘抽的是「类型」；抽中后请在游戏地图里，将符合类型的具体地段编号，再自行随机选一个。</p>
+    </div>
+  </div>
+</section>
+
+<section id="worlds" class="section">
+  <h2 class="section-title">03 / 世界专属人物与任务</h2>
+  <p class="intro">尽量完成对应人物互动；若人物不在场或存档中不存在，选一位符合主题的居民替代。</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>世界</th><th>主题人物</th><th>专属任务</th><th>作品主题</th></tr></thead>
+    <tbody>
+      <tr><td>Willow Creek</td><td>贝拉·哥特</td><td>了解一个家庭的关系或秘密</td><td>家庭与秘密</td></tr>
+      <tr><td>Oasis Springs</td><td>鲍勃·煎饼</td><td>观察普通居民的日常生活</td><td>平凡人生</td></tr>
+      <tr><td>Windenburg</td><td>埃里克·刘易斯</td><td>参与社交活动，了解当地生活</td><td>传统与现代</td></tr>
+      <tr><td>San Myshuno</td><td>一位陌生居民</td><td>采访两名不同背景的居民</td><td>城市众生</td></tr>
+      <tr><td>Forgotten Hollow</td><td>弗拉德斯劳斯·施特劳德</td><td>探索神秘氛围并与当地居民互动</td><td>永生与孤独</td></tr>
+      <tr><td>Brindleton Bay</td><td>当地动物爱好者</td><td>体验动物或海岸相关活动</td><td>陪伴与离别</td></tr>
+      <tr><td>Del Sol Valley</td><td>一名名人或职业抱负者</td><td>了解对方的梦想与职业</td><td>名声与代价</td></tr>
+      <tr><td>Strangerville</td><td>一名当地居民</td><td>收集线索，调查当地传闻</td><td>谜团与真相</td></tr>
+      <tr><td>Sulani</td><td>莫阿纳·玛尼</td><td>体验当地文化或自然活动</td><td>海洋与传统</td></tr>
+      <tr><td>Glimmerbrook</td><td>一名魔法相关人物</td><td>了解魔法世界，完成一次相关探索</td><td>奇幻与未知</td></tr>
+      <tr><td>Evergreen Harbor</td><td>一名当地居民</td><td>参与社区或环保相关活动</td><td>改变与未来</td></tr>
+      <tr><td>Britechester</td><td>一名学生或教职人员</td><td>了解对方的梦想与生活</td><td>青春与理想</td></tr>
+      <tr><td>Mt. Komorebi</td><td>小田由美</td><td>体验当地特色活动，观察传统生活</td><td>文化与传承</td></tr>
+      <tr><td>Henford-on-Bagley</td><td>阿格尼斯·克鲁姆尔博顿</td><td>了解乡村生活，完成居民互动</td><td>乡村与人情</td></tr>
+      <tr><td>Tartosa</td><td>一名当地居民</td><td>了解一段关系或爱情观念</td><td>爱情与选择</td></tr>
+      <tr><td>Moonwood Mill</td><td>克里斯托弗·沃尔克</td><td>了解当地群体与身份认同</td><td>野性与归属</td></tr>
+      <tr><td>Copperdale</td><td>一名当地年轻居民</td><td>体验当地年轻人的生活</td><td>成长与告别</td></tr>
+      <tr><td>San Sequoia</td><td>一户当地家庭</td><td>观察家庭成员之间的关系</td><td>家人与时间</td></tr>
+      <tr><td>Chestnut Ridge</td><td>一名当地居民</td><td>体验乡村或马术相关活动</td><td>自由与冒险</td></tr>
+      <tr><td>Ciudad Enamorada</td><td>一名当地居民</td><td>了解一段关系或一次情感选择</td><td>相遇与错过</td></tr>
+    </tbody>
+  </table></div>
+  <p class="help">人物和内容可能随资料片、游戏更新与存档而不同；以上是主题灵感，并不保证每个居民都在对应世界出现。</p>
+</section>
+
+<section id="events" class="section">
+  <h2 class="section-title">04 / 每次旅行的任务清单</h2>
+  <div class="two-col">
+    <div class="card checklist"><h3>五日旅行节奏</h3>
+      <label><input type="checkbox">第 1 天：抵达、探索抽中的地段、记录第一印象</label>
+      <label><input type="checkbox">第 2 天：认识当地居民、收集素材</label>
+      <label><input type="checkbox">第 3 天：完成专属人物任务</label>
+      <label><input type="checkbox">第 4 天：处理随机事件、推进写作</label>
+      <label><input type="checkbox">第 5 天：完成作品、收集纪念品、离开</label>
+    </div>
+    <div class="card checklist"><h3>旅行离境检查</h3>
+      <label><input type="checkbox">已完成至少一本与当地有关的正式书籍</label>
+      <label><input type="checkbox">已尝试与主题人物互动</label>
+      <label><input type="checkbox">已完成随机事件或记录失败</label>
+      <label><input type="checkbox">已收集一件有意义的旅行纪念品</label>
+      <label><input type="checkbox">已填写旅行日志</label>
+    </div>
+  </div>
+  <div class="grid" style="margin-top:14px">
+    <article class="card"><h3>📍 地段类型</h3><p>公园自然区、餐饮、文化场所、夜生活、商业区、居民住宅、当地特色场所、随机社区地段。</p></article>
+    <article class="card"><h3>✒️ 写作灵感</h3><p>陌生人、秘密、离别、梦想、爱情、家庭、自由、孤独、传统、改变、冒险、遗憾。</p></article>
+    <article class="card"><h3>🎲 失败惩罚</h3><p>若超时或未完成任务，必须离开；下一世界第一天不能写书，或预算减少 §100，任选其一。</p></article>
+  </div>
+</section>
+
+<section id="log" class="section">
+  <h2 class="section-title">05 / 旅行日志</h2>
+  <p class="intro">填完后点击「保存本次日志」。记录会保存在当前浏览器，可导出为文本备份。</p>
+  <div class="card">
+    <div class="log-grid">
+      <label>世界名称<input id="logWorld" placeholder="例如：Sulani"></label>
+      <label>停留天数<input id="logDays" type="number" min="1" max="5" placeholder="例如：5"></label>
+      <label>随机地段<input id="logPlace" placeholder="地段名称 / 类型"></label>
+      <label>专属人物<input id="logPerson" placeholder="姓名或自选居民"></label>
+      <label>随机事件<input id="logEvent" placeholder="本次抽中的事件"></label>
+      <label>本次作品<input id="logBook" placeholder="书名与主题"></label>
+      <label>旅行纪念品<input id="logSouvenir" placeholder="物品 / 照片 / 收藏品"></label>
+      <label>收入与支出<input id="logMoney" placeholder="例如：收入 §200，支出 §150"></label>
+      <label style="grid-column:1/-1">认识的新朋友<input id="logFriends" placeholder="居民姓名"></label>
+      <label style="grid-column:1/-1">旅途中最难忘的事<textarea id="logMemory" placeholder="发生了什么？"></textarea></label>
+      <label style="grid-column:1/-1">这次旅行改变了什么？<textarea id="logGrowth" placeholder="主控学到了什么，想法有什么改变？"></textarea></label>
+    </div>
+    <div class="log-actions"><button class="btn primary" id="saveLog">保存本次日志</button><button class="btn secondary" id="exportLog">导出日志 TXT</button><button class="btn secondary" id="clearLog">清空输入</button></div>
+    <p class="saved" id="logStatus" aria-live="polite"></p>
+    <div id="savedLogs" class="help"></div>
+  </div>
+</section>
+
+<section id="goal" class="section">
+  <h2 class="section-title">06 / 胜利条件</h2>
+  <div class="grid">
+    <article class="card"><span class="pill">阶段一</span><h3>初出茅庐</h3><p>探索 3 个不同世界；完成 3 本书与 3 件纪念品。</p></article>
+    <article class="card"><span class="pill">阶段二</span><h3>崭露头角</h3><p>探索 7 个不同世界；完成 7 本书，并建立至少 5 段有意义的人际关系。</p></article>
+    <article class="card"><span class="pill">最终阶段</span><h3>世界旅行作家</h3><p>探索至少 80% 的可用世界；完成至少 10 本书、8 个人物任务和 8 个世界专属任务，并拥有完整旅行日志与一部代表作。</p></article>
+  </div>
+  <div class="note" style="margin-top:15px"><strong>最终结局任选：</strong>归乡整理纪念品、继续漂泊，或建立一间陈列所有旅途收藏的旅行作家工作室。挑战的核心不是走过多少地图，而是你能否通过不同的人生，逐渐写出属于自己的世界。</div>
+</section>
+</main>
+<footer class="footer">The Wandering Writer Challenge · 为《模拟人生4》玩家自制的非官方挑战页面<br>提示：转盘名单和日志保存在本机浏览器；清除浏览器数据前请先导出备份。</footer>
+
+<script>
+const defaults = [
+"Willow Creek","Oasis Springs","Newcrest","Magnolia Promenade","Windenburg","San Myshuno","Forgotten Hollow","Brindleton Bay","Del Sol Valley","Strangerville","Sulani","Glimmerbrook","Evergreen Harbor","Britechester","Mt. Komorebi","Henford-on-Bagley","Tartosa","Moonwood Mill","Copperdale","San Sequoia","Chestnut Ridge","Ciudad Enamorada"
+];
+const wheelData = {
+ world: defaults,
+ place:["公园 / 自然区域","咖啡馆 / 餐厅","图书馆 / 文化场所","酒吧 / 夜生活","商业 / 购物区域","居民住宅","当地特色场所","随机社区地段"],
+ theme:["陌生人","秘密","离别","梦想","爱情","家庭","自由","孤独","传统","改变","冒险","遗憾"],
+ event:["灵感爆发：当天开始一本新书","偶遇贵人：认识新居民并发展友谊","旅费告急：预算减少 §100","文化冲击：参加当地特色活动","意外采访：深入交流一位陌生居民","灵感枯竭：今天不开始新书","旧友来信：联系一位旧友","意外发现：探索新地段","当地传闻：向两位居民打听同一话题","旅行纪念：收集一件当地物品","计划外冒险：尝试新活动","旅途反思：写一篇反思记录"],
+ task:["陌生人的故事：认识新居民并记录人物","当地美食家：尝试当地食物或饮料","文化观察者：参加当地活动","独行作家：独自探索一个地段","社交达人：与三名居民交流","城市漫步：连续探索两个地段","灵感收藏家：收集当地物品","旧友重逢：联系一位旧识","意外采访：与陌生居民深入交谈","生活观察：观察居民活动 3 小时","文化差异：尝试不同于日常的活动","旅行摄影师：记录三处不同地点","友情的代价：帮助一位新朋友","隐藏角落：找到未探索地段","工作与生活：工作后参加休闲活动","深夜访谈：夜间与居民交流","计划之外：进行一项临时活动","人生转折：记录居民的愿望或困境","旅行反思：记录本次旅途的收获"]
+};
+const labels={world:"世界转盘",place:"地段类型",theme:"写作灵感",event:"旅行事件",task:"通用任务"};
+const colors=["#47695a","#d3ad68","#a9c2ad","#b97868","#e4d7b9","#668b86","#d5a4a0","#7c8971","#c7b1d3","#c28b53","#90a7b3","#a2ad83"];
+const canvas=document.getElementById("wheel"),ctx=canvas.getContext("2d");
+let currentWheel="world",rotation=0,spinning=false,lastResult=null,raf=null;
+const $=id=>document.getElementById(id);
+function readLines(v){return v.split(/\n/).map(x=>x.trim()).filter(Boolean)}
+function getVisited(){return readLines($("visited").value)}
+function currentItems(){
+  let items=wheelData[currentWheel].slice();
+  if(currentWheel==="world" && $("worldMode").value==="unvisited"){
+    const visited=new Set(getVisited());
+    const filtered=items.filter(x=>!visited.has(x));
+    if(filtered.length) items=filtered;
+    else $("resultSub").textContent="所有世界都已标记探索过；本次从全部世界中抽取。";
+  }
+  return items;
+}
+function drawWheel(){
+ const items=currentItems(); const n=items.length||1; const cx=300,cy=300,r=282;
+ ctx.clearRect(0,0,600,600);
+ ctx.save();ctx.translate(cx,cy);ctx.rotate(rotation);
+ const arc=Math.PI*2/n;
+ for(let i=0;i<n;i++){
+   ctx.beginPath();ctx.moveTo(0,0);ctx.arc(0,0,r,i*arc,(i+1)*arc);ctx.closePath();
+   ctx.fillStyle=colors[i%colors.length];ctx.fill();ctx.lineWidth=2;ctx.strokeStyle="#fffdf7";ctx.stroke();
+   ctx.save();ctx.rotate(i*arc+arc/2);ctx.textAlign="right";ctx.textBaseline="middle";
+   const maxLen=n>18?10:n>12?12:15;let label=items[i];if(label.length>maxLen)label=label.slice(0,maxLen-1)+"…";
+   ctx.fillStyle="#23372f";ctx.font=`${n>18?13:n>12?15:17}px system-ui, sans-serif`;
+   ctx.fillText(label,r-18,0);ctx.restore();
+ }
+ ctx.beginPath();ctx.arc(0,0,49,0,Math.PI*2);ctx.fillStyle="#fffdf7";ctx.fill();ctx.lineWidth=5;ctx.strokeStyle="#c59b55";ctx.stroke();
+ ctx.fillStyle="#314f43";ctx.textAlign="center";ctx.textBaseline="middle";ctx.font="bold 18px Georgia, serif";ctx.fillText("WANDER",0,-5);ctx.font="12px system-ui";ctx.fillText("✦ WRITE ✦",0,16);
+ ctx.restore();
+}
+function switchWheel(name){
+ currentWheel=name;document.querySelectorAll(".wheel-tab").forEach(b=>b.classList.toggle("active",b.dataset.wheel===name));
+ $("result").textContent="准备好开启旅程了吗？";$("resultSub").textContent="当前转盘："+labels[name];drawWheel();
+}
+document.querySelectorAll(".wheel-tab").forEach(b=>b.addEventListener("click",()=>switchWheel(b.dataset.wheel)));
+function chooseResult(){
+ const items=currentItems();if(!items.length)return null;
+ const n=items.length,arc=2*Math.PI/n;
+ // pointer is at top (-pi/2); account for rotation, where item 0 begins at angle 0
+ let angle=((Math.PI*1.5-rotation)%(Math.PI*2)+(Math.PI*2))%(Math.PI*2);
+ return items[Math.floor(angle/arc)%n];
+}
+function spin(){
+ if(spinning)return;
+ const items=currentItems();if(!items.length)return;
+ spinning=true;$("spin").disabled=true;$("again").disabled=true;
+ const n=items.length,arc=2*Math.PI/n;
+ const idx=Math.floor(Math.random()*n);
+ // Aim the center of chosen segment at the fixed pointer at 12 o'clock.
+ const targetNorm=((Math.PI*1.5)-(idx+.5)*arc+Math.PI*2)%(Math.PI*2);
+ const start=rotation%(Math.PI*2);
+ const extra=6+Math.floor(Math.random()*4);
+ const delta=extra*Math.PI*2+((targetNorm-start+Math.PI*2)%(Math.PI*2));
+ const from=rotation,to=rotation+delta,duration=4200+Math.random()*900,t0=performance.now();
+ function frame(now){
+   const p=Math.min(1,(now-t0)/duration);const ease=1-Math.pow(1-p,4);
+   rotation=from+(to-from)*ease;drawWheel();
+   if(p<1){raf=requestAnimationFrame(frame);return}
+   rotation=((rotation%(Math.PI*2))+Math.PI*2)%(Math.PI*2);
+   // Use the intended index to avoid floating-point boundary ambiguity.
+   lastResult={wheel:currentWheel,value:items[idx]};
+   $("result").textContent=items[idx];$("resultSub").textContent="已抽取 · "+labels[currentWheel];
+   if(currentWheel==="world"){$("logWorld").value=items[idx]}
+   if(currentWheel==="place"){$("logPlace").value=items[idx]}
+   if(currentWheel==="theme")$("logBook").placeholder="请将「"+items[idx]+"」融入本次作品";
+   if(currentWheel==="event")$("logEvent").value=items[idx];
+   spinning=false;$("spin").disabled=false;$("again").disabled=false;
+ }
+ raf=requestAnimationFrame(frame);
+}
+$("spin").addEventListener("click",spin);$("again").addEventListener("click",spin);
+$("customWorlds").value=defaults.join("\n");
+$("saveWorlds").addEventListener("click",()=>{
+ const list=readLines($("customWorlds").value);if(!list.length){alert("请至少保留一个世界。");return}
+ wheelData.world=list;localStorage.setItem("ww_worlds",JSON.stringify(list));switchWheel(currentWheel);
+ $("resultSub").textContent="世界名单已保存，共 "+list.length+" 个世界。";
+});
+$("restoreWorlds").addEventListener("click",()=>{$("customWorlds").value=defaults.join("\n");wheelData.world=defaults.slice();localStorage.setItem("ww_worlds",JSON.stringify(defaults));switchWheel(currentWheel)});
+$("markVisited").addEventListener("click",()=>{
+ if(!lastResult||lastResult.wheel!=="world"){alert("请先抽取一次世界转盘。");return}
+ const vals=getVisited();if(!vals.includes(lastResult.value))vals.push(lastResult.value);
+ $("visited").value=vals.join("\n");localStorage.setItem("ww_visited",JSON.stringify(vals));$("resultSub").textContent="已标记「"+lastResult.value+"」为探索完成。";drawWheel();
+});
+$("resetVisited").addEventListener("click",()=>{if(confirm("确定清空已探索世界列表？")){$("visited").value="";localStorage.removeItem("ww_visited");drawWheel()}});
+$("worldMode").addEventListener("change",drawWheel);
+try{const w=JSON.parse(localStorage.getItem("ww_worlds")||"null");if(Array.isArray(w)&&w.length){wheelData.world=w;$("customWorlds").value=w.join("\n")}}catch(e){}
+try{const v=JSON.parse(localStorage.getItem("ww_visited")||"[]");if(Array.isArray(v))$("visited").value=v.join("\n")}catch(e){}
+drawWheel();
+
+// Travel log persistence
+const logFields=["logWorld","logDays","logPlace","logPerson","logEvent","logBook","logSouvenir","logMoney","logFriends","logMemory","logGrowth"];
+function loadLogs(){try{return JSON.parse(localStorage.getItem("ww_logs")||"[]")}catch(e){return []}}
+function renderLogs(){
+ const logs=loadLogs();$("savedLogs").innerHTML=logs.length?`<strong>已保存 ${logs.length} 条旅行记录</strong><ol>${logs.slice().reverse().slice(0,5).map(x=>`<li>${escapeHtml(x.logWorld||"未命名世界")} · ${escapeHtml(x.logBook||"尚未命名作品")} <span class="help">(${escapeHtml(x.date)})</span></li>`).join("")}</ol>`:"尚无已保存日志。";
+}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+$("saveLog").addEventListener("click",()=>{
+ const obj={date:new Date().toLocaleDateString("zh-CN")};logFields.forEach(id=>obj[id]=$(id).value.trim());
+ if(!obj.logWorld){alert("请先填写世界名称。");return}
+ const logs=loadLogs();logs.push(obj);localStorage.setItem("ww_logs",JSON.stringify(logs));
+ $("logStatus").textContent="本次旅行日志已保存在当前浏览器。";renderLogs();
+});
+$("exportLog").addEventListener("click",()=>{
+ const logs=loadLogs();if(!logs.length){alert("还没有保存的日志。");return}
+ const names=["世界名称","停留天数","随机地段","专属人物","随机事件","本次作品","旅行纪念品","收入与支出","认识的新朋友","旅途中最难忘的事","这次旅行改变了什么"];
+ const txt=logs.map((o,i)=>`旅行记录 ${i+1}（${o.date}）\n`+logFields.map((id,j)=>`${names[j]}：${o[id]||"未填写"}`).join("\n")).join("\n\n--------------------\n\n");
+ const blob=new Blob(["\ufeff"+txt],{type:"text/plain;charset=utf-8"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="世界旅行作家挑战-旅行日志.txt";a.click();URL.revokeObjectURL(a.href);
+});
+$("clearLog").addEventListener("click",()=>{logFields.forEach(id=>$(id).value="");$("logStatus").textContent="输入已清空（已保存的日志不会删除）。"});
+renderLogs();
+</script>
+</body>
+</html>
